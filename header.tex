@@ -1,0 +1,132 @@
+% LaTeX header for lecture notes and exercises
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{csquotes}
+\usepackage{array}
+\usepackage{enumerate}
+\usepackage[nswissgerman]{babel}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{siunitx}
+\usepackage{tensor}
+\usepackage{txfonts}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{algorithm2e}
+
+\usepackage[
+  colorlinks=false,% hyperlinks will be black
+  urlbordercolor=blue,% hyperlink borders will be red
+  pdfborderstyle={/S/U/W 1}% border style will be underline of width 1pt
+  ]{hyperref}
+
+% Ensure the document compiles even after updates.
+% PGFplots does not alwasy guarantee backwards compatibility
+\pgfplotsset{compat=1.17}
+
+% Define numbering for these environments based on the section counter
+% (Equal to predefined 'theorem' environment)
+\theoremstyle{definition}
+\newcounter{myDefCounter}[section]
+\newtheorem{definition}[myDefCounter]{Definition}
+\numberwithin{myDefCounter}{section}
+\newtheorem{lemma}[myDefCounter]{Lemma}
+\newtheorem{proposition}[myDefCounter]{Proposition}
+\newtheorem{satz}[myDefCounter]{Satz}
+\newtheorem{corolary}[myDefCounter]{Korollar}
+\newtheorem{example}[myDefCounter]{Beispiel}
+\newtheorem{task}[myDefCounter]{Aufgabe}
+
+% Use a circle instead of a square to end proofs. Looks so much nicer...
+\renewcommand{\qedsymbol}{$\bigcirc$}
+
+% Simple 2x2 matrix
+\newcommand{\mat}[4]{\begin{pmatrix*}[r] #1 & #2 \\ #3 & #4 \end{pmatrix*}}
+\newcommand{\matc}[4]{\begin{pmatrix} #1 & #2 \\ #3 & #4 \end{pmatrix}}
+
+% Use \rep{a}{b}{c} for the representation matrix of homomorphism b : <c> \to <a>
+\newcommand{\rep}[3]{\tensor[_{#1}]{\lbrack #2 \rbrack}{_{#3}}}
+% Span operator: \spn{B} creates <B>
+\newcommand{\spn}[1]{\ensuremath{\operatorname{\left\langle #1 \right\rangle}}}
+% Trace operator
+\DeclareMathOperator*{\trace}{Tr}
+% Image operator
+\newcommand{\img}[1]{\ensuremath{\operatorname{im} #1}}
+% Rank operator
+\newcommand{\rank}[1]{\ensuremath{\operatorname{rank} #1}}
+% arg min and arg max operators
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+% Polynomial degree operator (\deg already used for degree symbol (like in \deg C[elsius]))
+\DeclareMathOperator{\grad}{\operatorname{grad}}
+% Volume differential
+\DeclareMathOperator{\dvol}{\operatorname{dvol}}
+% ggT
+\DeclareMathOperator{\ggT}{\operatorname{ggT}}
+
+% Table column types for left / right / centered allignment with fixed width, use like: R{3em}
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+
+%% Listings:
+\usepackage{listings}
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+
+
+\lstset{
+  extendedchars=true,
+  basicstyle=\ttfamily,
+  literate=%
+  {€}{\euro}1%
+  {§}{\S}1%
+  {°}{\textdegree{}}1%
+  {ä}{{\"a}}1%
+  {ö}{{\"o}}1%
+  {ü}{{\"u}}1%
+  {ß}{{\ss}}1%
+  {Ä}{{\"A}}1%
+  {Ö}{{\"O}}1%
+  {Ü}{{\"U}}1%
+  {µ}{\textmu}1%
+  {¹}{{\textsuperscript{1}}}1%
+  {²}{{\textsuperscript{2}}}1%
+  {³}{{\textsuperscript{3}}}1%
+  {¼}{\textonequarter}1%
+  {½}{\textonehalf}1%
+  {¢}{\textcent}1%
+}
+
+\lstdefinestyle{Matlab}{
+  numbers=left,
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  linewidth=13cm,
+  xleftmargin=1cm,
+  language=Matlab,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+  numberstyle=\ttfamily\tiny,
+  morestring=*[d]{"},
+  numbersep=9pt,
+  captionpos=b
+}
+\lstdefinelanguage{Matlab}{
+  keywords={function,global,zeros,switch,case,otherwise,end,sin,cos,cot,%
+    floor,ode45,hold,polarplot,for,if,else,norm,abs,diag,sqrt,randn,hess,format,short,long},
+  sensitive=true
+}
